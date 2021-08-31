@@ -19,7 +19,7 @@ describe("Testing tests", () => {
 describe("Testing endpoints", () => {
 
     beforeAll(done => {
-        mongoose.connect(`${process.env.ATLAS_URL}/test`, () => {
+        mongoose.connect(`${process.env.ATLAS_TEST_URL}`, () => {
             console.log("Connected to Atlas!")
             done()
         })
@@ -63,6 +63,16 @@ describe("Testing endpoints", () => {
         const getResponse = await request.get(`/products/${_id}`)
         expect(getResponse.body.name).toBe(validProduct.name)
 
+    })
+
+    it("should test that the /products endpoint is returning 204 when a produduct is successfully deleted", async () => {
+        const response = await request.post("/products").send(validProduct)
+        expect(response.status).toBe(201)
+
+        const _id = response.body._id
+
+        const getResponse = await request.delete(`/products/${_id}`)
+        expect(getResponse.status).toBe(204)
     })
 
     afterAll(done => {

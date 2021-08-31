@@ -17,6 +17,15 @@ productsRouter.get('/:id', async (req, res) => {
     }
 })
 
+productsRouter.delete('/:id', async (req, res) => {
+    try {
+        const deletedProduct = await ProductModel.findByIdAndDelete(req.params.id)
+        res.status(204).send()
+    } catch (error) {
+        res.status(404).send()
+    }
+})
+
 productsRouter.post('/', async (req, res) => {
     try {
         const product = new ProductModel(req.body)
