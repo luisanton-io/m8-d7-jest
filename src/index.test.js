@@ -1,20 +1,20 @@
 import app from "./app.js"
-import supertest from "supertest"
-import mongoose from "mongoose"
-
 import dotenv from "dotenv"
+import mongoose from "mongoose"
+import supertest from "supertest"
+
 dotenv.config()
 
 const request = supertest(app)
 
 
-describe("Testing tests", () => {
+// describe("Testing tests", () => {
 
-    it("should test that true is true", () => {
-        expect(true).toBe(true)
-    })
+//     it("should test that true is true", () => {
+//         expect(true).toBe(true)
+//     })
 
-})
+// })
 
 describe("Testing endpoints", () => {
 
@@ -32,38 +32,38 @@ describe("Testing endpoints", () => {
         expect(response.body.message).toBe("Test success!")
     })
 
-    it("should test that the /products endpoint is returning a list of products", async () => {
+    // it("should test that the /products endpoint is returning a list of products", async () => {
 
-        const response = await request.get("/products")
+    //     const response = await request.get("/products")
 
-        expect(response.status).toBe(200)
-        expect(response.body.length).toBeDefined()
-    })
+    //     expect(response.status).toBe(200)
+    //     expect(response.body.length).toBeDefined()
+    // })
 
-    const validProduct = {
-        name: "iPhone",
-        price: 900
-    }
+    // const validProduct = {
+    //     name: "iPhone",
+    //     price: 900
+    // }
 
-    it("should test that the /products endpoint is letting POST a new product", async () => {
-        const response = await request.post("/products").send(validProduct)
+    // it("should test that the /products endpoint is letting POST a new product", async () => {
+    //     const response = await request.post("/products").send(validProduct)
 
-        expect(response.status).toBe(201)
-        expect(response.body.name).toBe(validProduct.name)
-    })
+    //     expect(response.status).toBe(201)
+    //     expect(response.body.name).toBe(validProduct.name)
+    // })
 
-    it("should test that the /products endpoint is returning one product with the correct id", async () => {
-        const response = await request.post("/products").send(validProduct)
+    // it("should test that the /products endpoint is returning one product with the correct id", async () => {
+    //     const response = await request.post("/products").send(validProduct)
 
-        expect(response.status).toBe(201)
-        expect(response.body.name).toBe(validProduct.name)
+    //     expect(response.status).toBe(201)
+    //     expect(response.body.name).toBe(validProduct.name)
 
-        const _id = response.body._id
+    //     const _id = response.body._id
 
-        const getResponse = await request.get(`/products/${_id}`)
-        expect(getResponse.body.name).toBe(validProduct.name)
+    //     const getResponse = await request.get(`/products/${_id}`)
+    //     expect(getResponse.body.name).toBe(validProduct.name)
 
-    })
+    // })
 
     afterAll(done => {
         mongoose.connection.dropDatabase().then(() => {
