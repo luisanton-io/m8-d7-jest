@@ -65,6 +65,16 @@ describe("Testing endpoints", () => {
 
     })
 
+    it("should test that the /products endpoint is returning 204 when a produduct is successfully deleted", async () => {
+        const response = await request.post("/products").send(validProduct)
+        expect(response.status).toBe(201)
+
+        const _id = response.body._id
+
+        const getResponse = await request.delete(`/products/${_id}`)
+        expect(getResponse.status).toBe(204)
+    })
+
     afterAll(done => {
         mongoose.connection.dropDatabase().then(() => {
             mongoose.connection.close()
