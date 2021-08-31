@@ -19,7 +19,7 @@ describe("Testing tests", () => {
 describe("Testing endpoints", () => {
 
     beforeAll(done => {
-        mongoose.connect(`${process.env.ATLAS_URL}/test`, () => {
+        mongoose.connect(`${process.env.ATLAS_TEST_URL}`, () => {
             console.log("Connected to Atlas!")
             done()
         })
