@@ -52,6 +52,8 @@ describe("Testing endpoints", () => {
         expect(response.body.name).toBe(validProduct.name)
     })
 
+    let id
+
     it("should test that the /products endpoint is returning one product with the correct id", async () => {
         const response = await request.post("/products").send(validProduct)
 
@@ -68,6 +70,7 @@ describe("Testing endpoints", () => {
     it("should test that the /products endpoint is returning 204 when a produduct is successfully deleted", async () => {
         const response = await request.post("/products").send(validProduct)
         expect(response.status).toBe(201)
+        expect(response.body.name).toBe(validProduct.name)
 
         const _id = response.body._id
 
