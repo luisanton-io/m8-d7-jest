@@ -52,8 +52,6 @@ describe("Testing endpoints", () => {
         expect(response.body.name).toBe(validProduct.name)
     })
 
-    let id
-
     it("should test that the /products endpoint is returning one product with the correct id", async () => {
         const response = await request.post("/products").send(validProduct)
 
@@ -65,6 +63,24 @@ describe("Testing endpoints", () => {
         const getResponse = await request.get(`/products/${_id}`)
         expect(getResponse.body.name).toBe(validProduct.name)
 
+    })
+    const editProduct = {
+        name: "Laptop",
+        // price: 900
+    }
+
+    it("should test that the /products endpoint is returning a new name when its successfully updated", async () => {
+        const response = await request.post("/products").send(validProduct)
+        expect(response.status).toBe(201)
+        expect(response.body.name).toBe(validProduct.name)
+
+        const _id = response.body._id
+        const oldName = response.body.name
+
+        const getResponse = await request.put(`/products/${_id}`).send(editProduct)
+        expect(getResponse.status).toBe(200)
+        expect(typeof getResponse.body.name).toBe('string')
+        expect(getResponse.body.name).not.toBe(oldName)
     })
 
     it("should test that the /products endpoint is returning 204 when a produduct is successfully deleted", async () => {
