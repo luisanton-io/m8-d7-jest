@@ -69,6 +69,11 @@ describe("Testing endpoints", () => {
     expect(response.status).toBe(404)
   })
 
+  it("should test that /products/:id returns 400 for an invalid mongo ID", async () => {
+    const response = await request.get("/products/abc")
+    expect(response.status).toBe(400)
+  })
+
   it("should test that the /products endpoint is letting to successfully DELETE a product", async () => {
     const response = await request.post("/products").send(validProduct)
 
